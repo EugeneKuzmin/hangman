@@ -6,6 +6,7 @@ const keyLayout = [
 ]
 
 const main = document.createElement('main');
+main.classList.add('flex')
 const sectionCanvas = document.createElement('section');
 const sectionGamePad = document.createElement('section');
 
@@ -13,7 +14,15 @@ const guessWordLayout = document.createElement('div');
 const hintLayout = document.createElement('div');
 const attemptsLayout = document.createElement('div');
 const keyBoardLayout = document.createElement('div');
+
+//sectionCanvas
+const hangmanPic = document.createElement('img');
+hangmanPic.src = './src/1.png';
+hangmanPic.alt = '1';
+sectionCanvas.appendChild(hangmanPic)
+
 keyBoardLayout.classList.add('flex');
+keyBoardLayout.classList.add('flex-wrap');
 
 const questions = [
   {question:'пьеса Маяковского',answer:'клоп'},
@@ -21,7 +30,6 @@ const questions = [
 ]
 
 main.classList.add('flex');
-main.classList.add('flex-wrap');
 
 //guess word section
 
@@ -43,6 +51,10 @@ guessWordLayout.classList.add('my-3');
 
 sectionGamePad.appendChild(guessWordLayout);
 
+let fallCounter = 0
+
+
+
 keyLayout.forEach(key=>{
 
   const btnKey = document.createElement('button');
@@ -50,12 +62,25 @@ keyLayout.forEach(key=>{
 
 
   btnKey.setAttribute("type", "button");
-  btnKey.textContent = key.toLowerCase();
+  btnKey.textContent = key;
+  btnKey.addEventListener('click',() => {
+    const letterIndx = guessingWord.indexOf(key)
+    if(letterIndx === -1){
+      fallCounter += 1
+      hangmanPic.src = `./src/${fallCounter}.png`;
+    }else{
+      letterBlockArray[letterIndx].textContent = key.toLocaleUpperCase()
+    }
+
+  })
+
   keyBoardLayout.appendChild(btnKey);
 
 })
 
 sectionGamePad.appendChild(keyBoardLayout);
+
+main.appendChild(sectionCanvas);
 main.appendChild(sectionGamePad);
 document.body.appendChild(main)
 
