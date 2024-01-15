@@ -7,18 +7,18 @@ const keyLayout = [
 
 const main = document.createElement('main');
 main.classList.add('flex')
-const sectionCanvas = document.createElement('section');
 const sectionGamePad = document.createElement('section');
 
 const guessWordLayout = document.createElement('div');
-const hintLayout = document.createElement('div');
+
 const attemptsLayout = document.createElement('div');
 const keyBoardLayout = document.createElement('div');
 
-//sectionCanvas
+//section picture
+const sectionCanvas = document.createElement('section');
 const hangmanPic = document.createElement('img');
 hangmanPic.src = './src/1.png';
-hangmanPic.alt = '1';
+hangmanPic.alt = 'gallows';
 sectionCanvas.appendChild(hangmanPic)
 
 keyBoardLayout.classList.add('flex');
@@ -35,7 +35,11 @@ main.classList.add('flex');
 
 let letterBlockArray =[]
 
-let guessingWord = questions[choosQuestion()].answer
+const questionElement = questions[choosQuestion()]
+
+let guessingWord = questionElement.answer
+let question = questionElement.question
+
 for (let index = 0; index < guessingWord.length; index++) {
   const letterDiv = document.createElement('div');
   letterDiv.classList.add('symbol')
@@ -78,6 +82,14 @@ keyLayout.forEach(key=>{
 
 })
 
+// hint section
+const hintLayout = document.createElement('div');
+hintLayout.classList.add('flex');
+hintLayout.classList.add('justify-content-center');
+hintLayout.classList.add('my-3');
+hintLayout.innerText = `Вопрос: ${question}`;
+
+sectionGamePad.appendChild(hintLayout);
 sectionGamePad.appendChild(keyBoardLayout);
 
 main.appendChild(sectionCanvas);
