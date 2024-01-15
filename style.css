@@ -14,6 +14,10 @@
     gap: 0.5rem;
 }
 
+.p-4 {
+    padding: 2rem;
+}
+
 .my-3 {
     padding-block: 1.5rem;
 }
@@ -27,6 +31,15 @@
     background-color: rgb(25, 140, 254);
     border-radius: 0.5rem;
     border: 2px solid rgba(189, 0, 189, 0.808);
+}
+
+.close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
 }
 
 .symbol {
