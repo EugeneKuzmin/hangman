@@ -1,3 +1,8 @@
+.main-font {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
 .flex {
     display: flex;
 }
@@ -31,6 +36,10 @@
     background-color: rgb(25, 140, 254);
     border-radius: 0.5rem;
     border: 2px solid rgba(189, 0, 189, 0.808);
+}
+
+.key-button.typed {
+    background-color: rgba(29, 1, 121, 0.818);
 }
 
 .close-button {
