@@ -29,8 +29,11 @@ const init = () => {
   const leftQ = [...Array(10).keys()].filter(x=>!questionsOver.includes(x))
   if(leftQ.length === 1){
     questionElement = questions[leftQ[0]]
+    questionsOver.push(leftQ[0]);
   }else{
-    questionElement = questions[leftQ[choosQuestion(leftQ.length)]]
+    const selectedQuestion = choosQuestion(leftQ.length);
+    questionsOver.push(leftQ[selectedQuestion]);
+    questionElement = questions[leftQ[selectedQuestion]]
   }
   
   guessingWord = questionElement.answer;
@@ -212,6 +215,7 @@ modalFooter.appendChild(modalClose);
 modal.appendChild(modalContent);
 modal.appendChild(modalFooter);
 modalClose.addEventListener('click',() => {
+  console.log('init----');
   init();
   modal.close();
 })
