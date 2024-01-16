@@ -27,66 +27,77 @@ const questionsOver = [];
 const init = () => {
   let questionElement = 0;
   const leftQ = [...Array(10).keys()].filter(x=>!questionsOver.includes(x))
-  if(leftQ.length === 1){
-    questionElement = questions[leftQ[0]]
-    questionsOver.push(leftQ[0]);
+  if(leftQ.length === 0){
+    guessingWord = '';
+    guessingWordSource = '';
+    hintLayout.innerText = `We ran out of questions. Refresh the page to play again!`;
+    hintLayout.classList.add('alarm-color');
+    guessWordLayout.innerHTML = '';
+    attemptsLayout.innerHTML = ''
+    keyBoardLayout.innerHTML = '';
+    hangmanPic.src = './src/1.png';
   }else{
-    const selectedQuestion = choosQuestion(leftQ.length);
-    questionsOver.push(leftQ[selectedQuestion]);
-    questionElement = questions[leftQ[selectedQuestion]]
-  }
-  
-  guessingWord = questionElement.answer;
-  guessingWordSource = questionElement.answer;
-  question = questionElement.question;
-
-  hangmanPic.src = './src/1.png';
-
-  fallCounter = 0;
-
-  hintLayout.innerText = `Question: ${question}`;
-  attemptsLayout.innerText = `Attempts ${fallCounter} / 6`
-
-
-  letterBlockArray =[];
-  guessWordLayout.innerHTML = '';
-
-  for (let index = 0; index < guessingWord.length; index++) {
-    const letterDiv = document.createElement('div');
-    letterDiv.classList.add('symbol')
-    letterBlockArray.push(letterDiv)
-    guessWordLayout.appendChild(letterDiv)
-    
-  }
-
-  keyBoardLayout.innerHTML = '';
-  let keyBoardRow = document.createElement('div');
-  keyBoardRow.classList.add('flex');
-  keyBoardRow.classList.add('justify-content-center');
-
-  keyLayout.forEach((key,i)=>{
-    const btnKey = document.createElement('button');
-    btnKey.classList.add('key-button');
-  
-    btnKey.setAttribute("type", "button");
-    btnKey.textContent = key;
-    btnKey.addEventListener('click',(e) => {
-      keyPressProcessing(key);
-      e.target.classList.add('typed');
-      e.target.disabled = true;
-    })
-    
-    keyBoardRow.appendChild(btnKey);
-
-    if(i % 9 === 0&&i !==0){
-      keyBoardLayout.appendChild(keyBoardRow);
-      keyBoardRow = document.createElement('div');
-      keyBoardRow.classList.add('flex');
-      keyBoardRow.classList.add('justify-content-center');
+    if(leftQ.length === 1){
+      questionElement = questions[leftQ[0]]
+      questionsOver.push(leftQ[0]);
+    }else{
+      const selectedQuestion = choosQuestion(leftQ.length);
+      questionsOver.push(leftQ[selectedQuestion]);
+      questionElement = questions[leftQ[selectedQuestion]]
     }
+
+    guessingWord = questionElement.answer;
+    guessingWordSource = questionElement.answer;
+    question = questionElement.question;
+  
+    hangmanPic.src = './src/1.png';
+  
+    fallCounter = 0;
+  
+    hintLayout.innerText = `Question: ${question}`;
+    attemptsLayout.innerText = ''
+
+    letterBlockArray =[];
+    guessWordLayout.innerHTML = '';
+  
+    for (let index = 0; index < guessingWord.length; index++) {
+      const letterDiv = document.createElement('div');
+      letterDiv.classList.add('symbol')
+      letterBlockArray.push(letterDiv)
+      guessWordLayout.appendChild(letterDiv)
+      
+    }
+  
+    keyBoardLayout.innerHTML = '';
+    let keyBoardRow = document.createElement('div');
+    keyBoardRow.classList.add('flex');
+    keyBoardRow.classList.add('justify-content-center');
+  
+    keyLayout.forEach((key,i)=>{
+      const btnKey = document.createElement('button');
+      btnKey.classList.add('key-button');
     
-  })
-  keyBoardLayout.appendChild(keyBoardRow);
+      btnKey.setAttribute("type", "button");
+      btnKey.textContent = key;
+      btnKey.addEventListener('click',(e) => {
+        keyPressProcessing(key);
+        e.target.classList.add('typed');
+        e.target.disabled = true;
+      })
+      
+      keyBoardRow.appendChild(btnKey);
+  
+      if(i % 9 === 0&&i !==0){
+        keyBoardLayout.appendChild(keyBoardRow);
+        keyBoardRow = document.createElement('div');
+        keyBoardRow.classList.add('flex');
+        keyBoardRow.classList.add('justify-content-center');
+      }
+      
+    })
+    keyBoardLayout.appendChild(keyBoardRow);
+    document.addEventListener('keyup',keyPress);
+  }
 
 }
 
@@ -96,11 +107,12 @@ const keyPressProcessing = (key) => {
 
   let letterIndx = guessingWord.indexOf(key)
       if(letterIndx === -1){
-        fallCounter += 1
+        fallCounter += 1;
         hangmanPic.src = `./src/${fallCounter+1}.png`;
-        attemptsLayout.innerText = `Attempts ${fallCounter} / 6`
+        attemptsLayout.innerText = `Attempts ${fallCounter} / 6`;
         if(fallCounter === 6){
-          modalContent.innerText = `You lost(. The right answer is ${guessingWordSource}`
+          modalContent.innerText = `You lost(. The right answer is ${guessingWordSource}`;
+          document.removeEventListener('keyup',keyPress);
           modal.showModal();
         }
       }else{
@@ -196,7 +208,6 @@ const keyPress = (e) => {
     }
   }
 }
-document.addEventListener('keyup',keyPress);
 
 sectionGamePad.appendChild(keyBoardLayout);
 
@@ -215,7 +226,6 @@ modalFooter.appendChild(modalClose);
 modal.appendChild(modalContent);
 modal.appendChild(modalFooter);
 modalClose.addEventListener('click',() => {
-  console.log('init----');
   init();
   modal.close();
 })

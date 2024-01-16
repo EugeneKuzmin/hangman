@@ -47,6 +47,10 @@
     max-width: minmax(380px,max-content)
 }
 
+.alarm-color {
+    color: red;
+}
+
 .key-button {
     display: flex;
     justify-content: center;
