@@ -82,3 +82,7 @@
     min-width: 1rem;
     min-height: 2rem;
 }
+
+.symbol.guessed {
+    border-bottom: none;
+}

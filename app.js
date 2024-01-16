@@ -55,7 +55,7 @@ const init = () => {
     fallCounter = 0;
   
     hintLayout.innerText = `Question: ${question}`;
-    attemptsLayout.innerText = ''
+    attemptsLayout.innerText = `Attempts ${fallCounter} / 6`;
 
     letterBlockArray =[];
     guessWordLayout.innerHTML = '';
@@ -118,11 +118,14 @@ const keyPressProcessing = (key) => {
       }else{
         while (letterIndx !== -1) {
           letterBlockArray[letterIndx].innerText = key.toUpperCase()
+          letterBlockArray[letterIndx].classList.add('guessed')
+
           guessingWord = guessingWord.replace(key,'$')
           letterIndx = guessingWord.indexOf(key)
         }
         if(guessingWord.split('').filter(x=>x==='$').length === guessingWord.length){
           modalContent.innerText = `Congrats!!! You win! The right answer is ${guessingWordSource}`
+          document.removeEventListener('keyup',keyPress);
           modal.showModal();
         }
       }
