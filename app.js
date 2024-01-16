@@ -68,31 +68,9 @@ const init = () => {
     btnKey.setAttribute("type", "button");
     btnKey.textContent = key;
     btnKey.addEventListener('click',(e) => {
-      let letterIndx = guessingWord.indexOf(key)
-      if(letterIndx === -1){
-        fallCounter += 1
-        hangmanPic.src = `./src/${fallCounter+1}.png`;
-        attemptsLayout.innerText = `Attempts ${fallCounter} / 6`
-        if(fallCounter === 6){
-          modalContent.innerText = `You lost(. The right answer is ${guessingWordSource}`
-          modal.showModal();
-        }
-      }else{
-  
-        while (letterIndx !== -1) {
-          letterBlockArray[letterIndx].innerText = key.toLocaleUpperCase()
-          guessingWord = guessingWord.replace(key,'$')
-          letterIndx = guessingWord.indexOf(key)
-        }
-        if(guessingWord.split('').filter(x=>x==='$').length === guessingWord.length){
-          modalContent.innerText = `Congrats!!! You win! The right answer is ${guessingWordSource}`
-          modal.showModal();
-  
-        }
-      }
-      e.target.classList.add('typed')
-      e.target.disabled = true
-      
+      keyPressProcessing(key);
+      e.target.classList.add('typed');
+      e.target.disabled = true;
     })
     
     keyBoardRow.appendChild(btnKey);
@@ -109,12 +87,41 @@ const init = () => {
 
 }
 
+//************ key click precessing ************//
+
+const keyPressProcessing = (key) => {
+
+  let letterIndx = guessingWord.indexOf(key)
+      if(letterIndx === -1){
+        fallCounter += 1
+        hangmanPic.src = `./src/${fallCounter+1}.png`;
+        attemptsLayout.innerText = `Attempts ${fallCounter} / 6`
+        if(fallCounter === 6){
+          modalContent.innerText = `You lost(. The right answer is ${guessingWordSource}`
+          modal.showModal();
+        }
+      }else{
+        while (letterIndx !== -1) {
+          letterBlockArray[letterIndx].innerText = key.toUpperCase()
+          guessingWord = guessingWord.replace(key,'$')
+          letterIndx = guessingWord.indexOf(key)
+        }
+        if(guessingWord.split('').filter(x=>x==='$').length === guessingWord.length){
+          modalContent.innerText = `Congrats!!! You win! The right answer is ${guessingWordSource}`
+          modal.showModal();
+        }
+      }
+
+}
+
+//************ main layout ************//
+
+
 const main = document.createElement('main');
 main.classList.add('flex')
 main.classList.add('main-font')
 
 const sectionGamePad = document.createElement('section');
-
 
 
 //************picture section************//
@@ -158,6 +165,18 @@ sectionGamePad.appendChild(attemptsLayout);
 //************keyboard section************//
 
 const keyBoardLayout = document.createElement('div');
+
+const keyPress = (e) => {
+  if(keyLayout.includes(e.key.toLowerCase())){
+    const btnKey = keyBoardLayout.querySelectorAll('.key-button')[keyLayout.indexOf(e.key.toLowerCase())];
+    if(!btnKey.disabled){
+      keyPressProcessing(e.key);
+      btnKey.classList.add('typed');
+      btnKey.disabled = true;
+    }
+  }
+}
+document.addEventListener('keyup',keyPress);
 
 
 //************modal section************//
