@@ -11,8 +11,20 @@
     flex-wrap: wrap;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .justify-content-center {
     justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
 }
 
 .gap-1 {
@@ -27,12 +39,21 @@
     padding-block: 1.5rem;
 }
 
+.mx-2 {
+    padding-inline: 1rem;
+}
+
+.max-width-35 {
+    max-width: minmax(380px,max-content)
+}
+
 .key-button {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0.3rem;
-    padding: 1rem;
+    padding-block: 1rem;
+    padding-inline: clamp(0.5rem, 1rem, 3rem);
     background-color: rgb(25, 140, 254);
     border-radius: 0.5rem;
     border: 2px solid rgba(189, 0, 189, 0.808);
@@ -53,7 +74,7 @@
 
 .symbol {
     padding: 1rem 0.5rem;
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.756);
     min-width: 1rem;
     min-height: 2rem;
 }

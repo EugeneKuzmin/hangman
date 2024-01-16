@@ -114,19 +114,34 @@ const keyPressProcessing = (key) => {
 
 }
 
+// ********** choose Q randome**********//
+
+const choosQuestion = (amountOfQuestions) => {
+  return Math.floor(Math.random() * amountOfQuestions);
+}
+
 //************ main layout ************//
 
 
 const main = document.createElement('main');
 main.classList.add('flex')
+main.classList.add('flex-wrap')
 main.classList.add('main-font')
 
 const sectionGamePad = document.createElement('section');
+sectionGamePad.classList.add('max-width-35');
+sectionGamePad.classList.add('flex');
+sectionGamePad.classList.add('flex-1');
+sectionGamePad.classList.add('flex-column');
+sectionGamePad.classList.add('align-items-center');
 
 
 //************picture section************//
 
 const sectionCanvas = document.createElement('section');
+sectionCanvas.classList.add('flex');
+sectionCanvas.classList.add('flex-1');
+sectionCanvas.classList.add('justify-content-center');
 const hangmanPic = document.createElement('img');
 
 hangmanPic.alt = 'gallows';
@@ -150,6 +165,7 @@ const hintLayout = document.createElement('div');
 hintLayout.classList.add('flex');
 hintLayout.classList.add('justify-content-center');
 hintLayout.classList.add('my-3');
+hintLayout.classList.add('mx-2');
 
 sectionGamePad.appendChild(hintLayout);
 
@@ -165,6 +181,7 @@ sectionGamePad.appendChild(attemptsLayout);
 //************keyboard section************//
 
 const keyBoardLayout = document.createElement('div');
+keyBoardLayout.classList.add('mx-2')
 
 const keyPress = (e) => {
   if(keyLayout.includes(e.key.toLowerCase())){
@@ -178,6 +195,7 @@ const keyPress = (e) => {
 }
 document.addEventListener('keyup',keyPress);
 
+sectionGamePad.appendChild(keyBoardLayout);
 
 //************modal section************//
 
@@ -199,20 +217,11 @@ modalClose.addEventListener('click',() => {
 })
 document.body.appendChild(modal)
 
-sectionGamePad.appendChild(keyBoardLayout);
+
+//******initialization***********/
 
 main.appendChild(sectionCanvas);
 main.appendChild(sectionGamePad);
 document.body.appendChild(main)
 
-function choosQuestion(amountOfQuestions) {
-  return Math.floor(Math.random() * amountOfQuestions);
-}
-
-////////////////
-
 init();
-
-
-
-
