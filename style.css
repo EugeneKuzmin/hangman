@@ -35,6 +35,10 @@
     padding: 2rem;
 }
 
+.mt-6 {
+    margin-top: 3rem;
+}
+
 .my-3 {
     padding-block: 1.5rem;
 }
@@ -85,4 +89,11 @@
 
 .symbol.guessed {
     border-bottom: none;
+}
+
+@media (max-width:768px) {
+    .mt-6 {
+        margin-top: 0;
+    }
+    
 }

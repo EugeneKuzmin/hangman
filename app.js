@@ -173,6 +173,7 @@ guessWordLayout.classList.add('flex');
 guessWordLayout.classList.add('justify-content-center');
 guessWordLayout.classList.add('gap-1');
 guessWordLayout.classList.add('my-3');
+guessWordLayout.classList.add('mt-6');
 
 sectionGamePad.appendChild(guessWordLayout);
 
