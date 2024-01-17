@@ -13,7 +13,7 @@ const questions = [
   {question:"In Lewis Carroll's 'Alice's Adventures in Wonderland,' what is the one-word name of the grinning cat?",answer:"cheshire"},
   {question:"What is the term for a program or set of instructions that performs a specific task on a computer?",answer:"algorithm"},
   {question:"What is the term for a malicious software that disrupts computer operations?",answer:"virus"},
-  {question:"What is the term for a software application that automates tasks on the web?",answer:"bot"},
+  {question:"The tallest waterfall in the world?",answer:"angel"},
   {question:"Meat is pickled in the juice of which fruit for the dish of Pudding and souse?",answer:"lime"},
 ]
 
