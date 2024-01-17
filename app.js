@@ -27,12 +27,12 @@ let questionsOver = [];
 
 const init = () => {
   let questionElement = 0;
-  let leftQ = [...Array(3).keys()].filter(x=>!questionsOver.includes(x))
+  let leftQ = [...Array(10).keys()].filter(x=>!questionsOver.includes(x))
 
   if(leftQ.length === 0){
     questionsOver = []
     questionsOver.push(prevQuestion)
-    leftQ = [...Array(3).keys()].filter(x=>!questionsOver.includes(x))
+    leftQ = [...Array(10).keys()].filter(x=>!questionsOver.includes(x))
   }
 
   if(leftQ.length === 1){
