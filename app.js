@@ -8,13 +8,13 @@ const questions = [
   {question:"What is the main ingredient in guacamole?",answer:"avocado"},
   {question:"What is the largest mammal on Earth?",answer:"whale"},
   {question:"What is the capital of Uganda?",answer:"kampala"},
-  // {question:"What is the capital of Republic of Cameroon?",answer:"yaounde"},
-  // {question:"In which sport would you perform a slam dunk?",answer:"basketball"},
-  // {question:"In Lewis Carroll's 'Alice's Adventures in Wonderland,' what is the one-word name of the grinning cat?",answer:"cheshire"},
-  // {question:"What is the term for a program or set of instructions that performs a specific task on a computer?",answer:"algorithm"},
-  // {question:"What is the term for a malicious software that disrupts computer operations?",answer:"virus"},
-  // {question:"What is the term for a software application that automates tasks on the web?",answer:"bot"},
-  // {question:"Meat is pickled in the juice of which fruit for the dish of Pudding and souse?",answer:"lime"},
+  {question:"What is the capital of Republic of Cameroon?",answer:"yaounde"},
+  {question:"In which sport would you perform a slam dunk?",answer:"basketball"},
+  {question:"In Lewis Carroll's 'Alice's Adventures in Wonderland,' what is the one-word name of the grinning cat?",answer:"cheshire"},
+  {question:"What is the term for a program or set of instructions that performs a specific task on a computer?",answer:"algorithm"},
+  {question:"What is the term for a malicious software that disrupts computer operations?",answer:"virus"},
+  {question:"What is the term for a software application that automates tasks on the web?",answer:"bot"},
+  {question:"Meat is pickled in the juice of which fruit for the dish of Pudding and souse?",answer:"lime"},
 ]
 
 let letterBlockArray =[];
