@@ -67,6 +67,7 @@
     border: 2px solid rgba(189, 0, 189, 0.808);
 }
 
+
 .key-button.typed {
     background-color: rgba(29, 1, 121, 0.818);
 }
@@ -78,6 +79,15 @@
     margin: 0.3rem;
     padding: 1rem;
     border-radius: 0.5rem;
+}
+
+.key-button:hover,
+.close-button:hover {
+    cursor: pointer;
+}
+
+.key-button.typed:hover {
+    cursor:auto;
 }
 
 .symbol {
