@@ -8,96 +8,90 @@ const questions = [
   {question:"What is the main ingredient in guacamole?",answer:"avocado"},
   {question:"What is the largest mammal on Earth?",answer:"whale"},
   {question:"What is the capital of Uganda?",answer:"kampala"},
-  {question:"What is the capital of Republic of Cameroon?",answer:"yaounde"},
-  {question:"In which sport would you perform a slam dunk?",answer:"basketball"},
-  {question:"In Lewis Carroll's 'Alice's Adventures in Wonderland,' what is the one-word name of the grinning cat?",answer:"cheshire"},
-  {question:"What is the term for a program or set of instructions that performs a specific task on a computer?",answer:"algorithm"},
-  {question:"What is the term for a malicious software that disrupts computer operations?",answer:"virus"},
-  {question:"What is the term for a software application that automates tasks on the web?",answer:"bot"},
-  {question:"Meat is pickled in the juice of which fruit for the dish of Pudding and souse?",answer:"lime"},
+  // {question:"What is the capital of Republic of Cameroon?",answer:"yaounde"},
+  // {question:"In which sport would you perform a slam dunk?",answer:"basketball"},
+  // {question:"In Lewis Carroll's 'Alice's Adventures in Wonderland,' what is the one-word name of the grinning cat?",answer:"cheshire"},
+  // {question:"What is the term for a program or set of instructions that performs a specific task on a computer?",answer:"algorithm"},
+  // {question:"What is the term for a malicious software that disrupts computer operations?",answer:"virus"},
+  // {question:"What is the term for a software application that automates tasks on the web?",answer:"bot"},
+  // {question:"Meat is pickled in the juice of which fruit for the dish of Pudding and souse?",answer:"lime"},
 ]
 
 let letterBlockArray =[];
 let guessingWord = '';
 let guessingWordSource = '';
 let question = '';
+let prevQuestion = '';
 let fallCounter = 0;
-const questionsOver = [];
+let questionsOver = [];
 
 const init = () => {
   let questionElement = 0;
-  const leftQ = [...Array(10).keys()].filter(x=>!questionsOver.includes(x))
+  let leftQ = [...Array(3).keys()].filter(x=>!questionsOver.includes(x))
+
   if(leftQ.length === 0){
-    guessingWord = '';
-    guessingWordSource = '';
-    hintLayout.innerText = `We ran out of questions. Refresh the page to play again!`;
-    hintLayout.classList.add('alarm-color');
-    guessWordLayout.innerHTML = '';
-    attemptsLayout.innerHTML = ''
-    keyBoardLayout.innerHTML = '';
-    hangmanPic.src = './src/1.png';
-  }else{
-    if(leftQ.length === 1){
-      questionElement = questions[leftQ[0]]
-      questionsOver.push(leftQ[0]);
-    }else{
-      const selectedQuestion = choosQuestion(leftQ.length);
-      questionsOver.push(leftQ[selectedQuestion]);
-      questionElement = questions[leftQ[selectedQuestion]]
-    }
-
-    guessingWord = questionElement.answer;
-    guessingWordSource = questionElement.answer;
-    question = questionElement.question;
-  
-    hangmanPic.src = './src/1.png';
-  
-    fallCounter = 0;
-  
-    hintLayout.innerText = `Question: ${question}`;
-    attemptsLayout.innerText = `Attempts ${fallCounter} / 6`;
-
-    letterBlockArray =[];
-    guessWordLayout.innerHTML = '';
-  
-    for (let index = 0; index < guessingWord.length; index++) {
-      const letterDiv = document.createElement('div');
-      letterDiv.classList.add('symbol')
-      letterBlockArray.push(letterDiv)
-      guessWordLayout.appendChild(letterDiv)
-      
-    }
-  
-    keyBoardLayout.innerHTML = '';
-    let keyBoardRow = document.createElement('div');
-    keyBoardRow.classList.add('flex');
-    keyBoardRow.classList.add('justify-content-center');
-  
-    keyLayout.forEach((key,i)=>{
-      const btnKey = document.createElement('button');
-      btnKey.classList.add('key-button');
-    
-      btnKey.setAttribute("type", "button");
-      btnKey.textContent = key;
-      btnKey.addEventListener('click',(e) => {
-        keyPressProcessing(key);
-        e.target.classList.add('typed');
-        e.target.disabled = true;
-      })
-      
-      keyBoardRow.appendChild(btnKey);
-  
-      if(i % 9 === 0&&i !==0){
-        keyBoardLayout.appendChild(keyBoardRow);
-        keyBoardRow = document.createElement('div');
-        keyBoardRow.classList.add('flex');
-        keyBoardRow.classList.add('justify-content-center');
-      }
-      
-    })
-    keyBoardLayout.appendChild(keyBoardRow);
-    document.addEventListener('keyup',keyPress);
+    questionsOver = []
+    questionsOver.push(prevQuestion)
+    leftQ = [...Array(3).keys()].filter(x=>!questionsOver.includes(x))
   }
+
+  if(leftQ.length === 1){
+    questionElement = questions[leftQ[0]]
+    questionsOver.push(leftQ[0]);
+    prevQuestion = leftQ[0]
+  }else{
+    const selectedQuestion = choosQuestion(leftQ.length);
+    questionsOver.push(leftQ[selectedQuestion]);
+    questionElement = questions[leftQ[selectedQuestion]]
+  }
+
+  guessingWord = questionElement.answer;
+  guessingWordSource = questionElement.answer;
+  question = questionElement.question;
+
+  hangmanPic.src = './src/1.png';
+
+  fallCounter = 0;
+
+  hintLayout.innerText = `Question: ${question}`;
+  attemptsLayout.innerText = `Attempts ${fallCounter} / 6`;
+
+  letterBlockArray =[];
+  guessWordLayout.innerHTML = '';
+
+  for (let index = 0; index < guessingWord.length; index++) {
+    const letterDiv = document.createElement('div');
+    letterDiv.classList.add('symbol')
+    letterBlockArray.push(letterDiv)
+    guessWordLayout.appendChild(letterDiv)
+  }
+
+  keyBoardLayout.innerHTML = '';
+  let keyBoardRow = document.createElement('div');
+  keyBoardRow.classList.add('flex');
+  keyBoardRow.classList.add('justify-content-center');
+
+  keyLayout.forEach((key,i)=>{
+    const btnKey = document.createElement('button');
+    btnKey.classList.add('key-button');
+    btnKey.setAttribute("type", "button");
+    btnKey.textContent = key;
+    btnKey.addEventListener('click',(e) => {
+      keyPressProcessing(key);
+      e.target.classList.add('typed');
+      e.target.disabled = true;
+    })
+    keyBoardRow.appendChild(btnKey);
+
+    if(i % 9 === 0&&i !==0){
+      keyBoardLayout.appendChild(keyBoardRow);
+      keyBoardRow = document.createElement('div');
+      keyBoardRow.classList.add('flex');
+      keyBoardRow.classList.add('justify-content-center');
+    }
+  })
+  keyBoardLayout.appendChild(keyBoardRow);
+  document.addEventListener('keyup',keyPress);
 
 }
 
